@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">EasyLauncher</string>
+    <string name="test">Test======</string>
+    <string name="message_example">取货码230834，中通快递，需要在晚上7点前取走。</string>
+    <string name="add_wait_to_do">添加事件</string>
+    <string name="add">+</string>
+    <string name="add_weight_app">添加桌面小部件</string>
+    <string name="change_bk">V</string>
+    <string name="limit_time">最后时间</string>
+    <string name="limit_date">最后日期</string>
+    <string name="setting">=</string>
+    <string name="setting_name">设置</string>
+    <string name="start_time">StartTime</string>
+    <string name="server_ip">服务器地址</string>
+    <string name="sure">应用</string>
+    <string name="remote_server_ip">远程服务器IP</string>
+    <string name="server_port">端口</string>
+    <string name="start_permission_1">开始授权1</string>
+    <string name="permission_tips">使用本应用需要给予以下权限：\\n\\t1.存储使用权限\\n\\t2.通知栏信息获取权限</string>
+    <string name="start_permission_2">开始授权2</string>
+    <string name="permission_finish">授权完成进入桌面</string>
+    <string name="device_name">本机名称</string>
+    <string name="net_setting_change_success">网络设置修改成功</string>
+    <string name="permission_show_on_screen">在屏幕上方显示</string>
+
+
+    <string name="app_delete">删除</string>
+    <string name="app_to_bottom">移至底部</string>
+    <string name="app_to_left">移至右侧</string>
+</resources>

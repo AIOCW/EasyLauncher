@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.aiocw.aihome.easylauncher">
+    <!-- 内存清理 -->
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 开机完成广播监听权限 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!-- 打电话权限 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" /> <!-- SDCard中创建与删除文件权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 在sdcard中创建/删除文件的权限 -->
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 应用卸载权限 -->
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" /> <!-- 应用安装权限 -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <application
+        android:name=".desktop.tools.ActivityLifecycleApplcation"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <!--
+        主启动
+        launchMode singleTask limited activity numbers
+        -->
+        <activity
+            android:name=".desktop.activity.HomeActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTask"
+            android:stateNotNeeded="true"
+            android:theme="@style/LauncherBaseTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity> <!-- 状态栏消息提取 -->
+        <!-- 状态栏消息服务 -->
+        <service
+            android:name=".extendfun.notifiction.NotificationCollectorService"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service> <!-- 手动添加便签页面 -->
+        <activity android:name=".extendfun.waittodo.AddWaitToDoActivity"></activity> <!-- this is use send get file path -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.aiocw.aihome.easylauncher.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/easy_launcher_path" />
+        </provider> <!-- 分享方式获取数据 -->
+        <activity
+            android:name=".extendfun.activity.ShareWaysActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/activityTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </activity> <!-- 打开方式获取数据 -->
+        <activity
+            android:name=".extendfun.activity.OpenWaysActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/activityTheme">
+            <intent-filter tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </activity> <!-- 设置页面声明 -->
+        <activity android:name=".desktop.activity.MainSetting"></activity>
+        <activity android:name=".common.activity.MessageShowWebView"></activity>
+        <activity android:name=".desktop.activity.ServerConnectionSetting"></activity>
+        <activity android:name=".desktop.activity.Welcome"></activity> <!-- 注：服务端的包名为：com.ljp.messenger_server，客户端绑定Service的时候是使用程序的包名，不是使用MyServerService类的包名 -->
+        <service
+            android:name=".common.EasyLauncherService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.aiocw.aihome.easylauncher.server.action" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

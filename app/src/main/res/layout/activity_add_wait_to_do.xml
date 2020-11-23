@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".extendfun.waittodo.AddWaitToDoActivity">
+
+    <EditText
+        android:id="@+id/edit_text_wait_to_do"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:gravity="top"
+        android:inputType="text"
+        android:minLines="6" />
+
+    <TextView
+        android:id="@+id/tv_limit_date"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="@string/limit_date"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/tv_limit_time"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="@string/limit_time"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_wait_to_do" />
+</LinearLayout>
