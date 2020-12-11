@@ -1,4 +1,6 @@
-  EasyLauncher
+  # EasyLauncher
+  
+  及其简单的Android桌面
   
   账户（账户名，账户号，账户金额）
   
