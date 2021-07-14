@@ -1,12 +1,15 @@
 # EasyLauncher
 及其简单的Android桌面
 
-[下载地址](https://github.com/AIOCW/EasyLauncher/releases)
-## 数据结构介绍
-账户（账户名，账户号，账户金额）
+[APP 下载地址](https://github.com/AIOCW/EasyLauncher/releases)
 
-金额、消费类型（支出、收入）、使用账户、消费详情、日期、时间
-  
+## 视频介绍
+![演示视频](https://ps.aiocw.com/easylauncher/0.mp4)
+## 图形介绍
+![图一](https://ps.aiocw.com/easylauncher/1.jpg)
+![图二](https://ps.aiocw.com/easylauncher/2.jpg)
+![图三](https://ps.aiocw.com/easylauncher/3.jpg)
+
 
 # 结构介绍
 
@@ -16,8 +19,13 @@
 桌面相关的类与代码
 ## extendfun  
 额外功能，例如桌面记事提示、文件转存
-  
-  
+ 
+## 数据结构介绍
+账户（账户名，账户号，账户金额）
+
+金额、消费类型（支出、收入）、使用账户、消费详情、日期、时间
+
+ 
 # 引用的额外库
 
 
