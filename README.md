@@ -43,3 +43,6 @@
 这个是给来获取webdav的
 
     implementation 'com.paul623.wdsyncer:wdsyncer:0.0.3'
+    
+这个是recyclerview的一个模型[the code sources from github.com XRecyclerView](https://github.com/XRecyclerView/XRecyclerView)
+    implementation 'com.jcodecraeer:xrecyclerview:1.6.0'
