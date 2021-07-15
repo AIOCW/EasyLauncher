@@ -40,3 +40,6 @@
 
     // https://mvnrepository.com/artifact/commons-net/commons-net
     implementation group: 'commons-net', name: 'commons-net', version: '3.6'
+这个是给来获取webdav的
+
+    implementation 'com.paul623.wdsyncer:wdsyncer:0.0.3'

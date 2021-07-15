@@ -238,6 +238,21 @@
 
         </RelativeLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/btn_refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add"/>
+
+            <TextView
+                android:id="@+id/tv_show_dav_file"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
 
     </com.aiocw.aihome.easylauncher.desktop.widget.ScrollLayout>
 

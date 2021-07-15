@@ -21,7 +21,9 @@ import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -36,6 +38,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -64,6 +67,10 @@ import com.aiocw.aihome.easylauncher.extendfun.entity.NetSettingSerializable;
 import com.aiocw.aihome.easylauncher.extendfun.waittodo.WaitToDo;
 import com.aiocw.aihome.easylauncher.extendfun.waittodo.AddWaitToDoActivity;
 import com.aiocw.aihome.easylauncher.extendfun.waittodo.WaitToDoDB;
+import com.paul623.wdsyncer.SyncConfig;
+import com.paul623.wdsyncer.SyncManager;
+import com.paul623.wdsyncer.api.OnListFileListener;
+import com.paul623.wdsyncer.model.DavData;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -173,6 +180,12 @@ public class HomeActivity extends BaseActivity implements RecycleViewLongPressMo
     private LinearLayout appOptionLayout;
     //End
 
+    //Fourth
+    private TextView tvShowDavFile;
+    private Button btnRefresh;
+    private String davFileList;
+    //end
+
     //app安装卸载更新广播
     private InstallUninstallBroadcastReceiver receiver;
     private IntentFilter package_removed;
@@ -230,6 +243,8 @@ public class HomeActivity extends BaseActivity implements RecycleViewLongPressMo
 
         initThirdLayout();
 
+        initFourthLayout();
+
         //内存管理， 获取当前可用内存余量，建议级别清理，Android系统当前允许的最大清理级别
         initMemoryAndClear();
 
@@ -286,7 +301,7 @@ public class HomeActivity extends BaseActivity implements RecycleViewLongPressMo
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("URL", "https://apip.weatherdt.com/h5.html?id=IbUyCSbYgr");
+                bundle.putString("URL", "https://e.weather.com.cn/d/town/index?lat=41.16964&lon=122.09044&areaid=101090404");
                 Intent intent = new Intent(HomeActivity.this, MessageShowWebView.class);
                 intent.putExtras(bundle);
                 startActivity(intent, bundle);
@@ -405,6 +420,52 @@ public class HomeActivity extends BaseActivity implements RecycleViewLongPressMo
         RecycleViewLongPressMove recycleViewLongPressMove = new RecycleViewLongPressMove(recyclerView, thirdApps, appOptionLayout);
         recycleViewLongPressMove.setOnLongPressMoveListener(this);
         appOptionLayout.setVisibility(View.GONE);
+    }
+
+    // Fourth
+    private Handler handler=new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            if (msg.what == 1) {
+                tvShowDavFile.setText(davFileList);
+            }
+            return false;
+        }
+    });
+    // Fourth
+    private void initFourthLayout() {
+        tvShowDavFile = findViewById(R.id.tv_show_dav_file);
+        btnRefresh = findViewById(R.id.btn_refresh);
+        btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SyncConfig config = new SyncConfig(HomeActivity.this);
+                config.setPassWord("yqlitig20");
+                config.setUserAccount("yaque");
+                config.setServerUrl("https://d.aiocw.com");
+                SyncManager syncManager = new SyncManager(HomeActivity.this);
+
+                syncManager.listAllFile("/Yaque/", new OnListFileListener() {
+                    @Override
+                    public void listAll(List<DavData> davResourceList) {
+
+                        for(DavData i:davResourceList){
+                            davFileList = davFileList + i.getDisplayName() + "\n";
+                        }
+                        Message message=new Message();
+                        message.what=1;
+                        handler.sendMessage(message);
+                        System.out.println(davFileList);
+                    }
+
+                    @Override
+                    public void onError(String errorMsg) {
+                        Log.d("MainActivity","请求失败:"+errorMsg);
+                    }
+                });
+            }
+        });
+
     }
 
     // 第二页的RecyclerView设置Adapter
