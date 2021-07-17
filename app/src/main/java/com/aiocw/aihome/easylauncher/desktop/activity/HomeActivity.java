@@ -52,6 +52,7 @@ import com.aiocw.aihome.easylauncher.common.net.NetThreadRunnable;
 import com.aiocw.aihome.easylauncher.common.tools.toolsdb.DBCommonData;
 import com.aiocw.aihome.easylauncher.desktop.adapter.AppWidgetModelAdapter;
 import com.aiocw.aihome.easylauncher.desktop.adapter.BottomRecyclerViewAdapter;
+import com.aiocw.aihome.easylauncher.desktop.adapter.FolderFileViewAdapter;
 import com.aiocw.aihome.easylauncher.desktop.adapter.LeftRecyclerViewAdapter;
 import com.aiocw.aihome.easylauncher.desktop.adapter.MoveDropAdapter;
 import com.aiocw.aihome.easylauncher.desktop.adapter.RightAdapter;
@@ -63,6 +64,7 @@ import com.aiocw.aihome.easylauncher.desktop.tools.AppInstallerAndRemove;
 import com.aiocw.aihome.easylauncher.desktop.tools.AppWidgetModelOption;
 import com.aiocw.aihome.easylauncher.desktop.tools.WeatherTools;
 import com.aiocw.aihome.easylauncher.extendfun.activity.OpenWaysActivity;
+import com.aiocw.aihome.easylauncher.extendfun.entity.FolderFileAttribute;
 import com.aiocw.aihome.easylauncher.extendfun.entity.NetSettingSerializable;
 import com.aiocw.aihome.easylauncher.extendfun.waittodo.WaitToDo;
 import com.aiocw.aihome.easylauncher.extendfun.waittodo.AddWaitToDoActivity;
@@ -183,7 +185,8 @@ public class HomeActivity extends BaseActivity implements RecycleViewLongPressMo
     //Fourth
     private TextView tvShowDavFile;
     private Button btnRefresh;
-    private String davFileList;
+    private FolderFileViewAdapter folderFileViewAdapter;
+    private List<FolderFileAttribute> folderFileAttributeList;
     //end
 
     //app安装卸载更新广播
@@ -427,14 +430,16 @@ public class HomeActivity extends BaseActivity implements RecycleViewLongPressMo
         @Override
         public boolean handleMessage(@NonNull Message msg) {
             if (msg.what == 1) {
-                tvShowDavFile.setText(davFileList);
+                folderFileViewAdapter = new FolderFileViewAdapter(HomeActivity.this, folderFileAttributeList); //目前共享一个list
+                recyclerView = findViewById(R.id.dav_recycler_view);
+                recyclerView.setAdapter(folderFileViewAdapter);
+                folderFileViewAdapter.notifyDataSetChanged();
             }
             return false;
         }
     });
     // Fourth
     private void initFourthLayout() {
-        tvShowDavFile = findViewById(R.id.tv_show_dav_file);
         btnRefresh = findViewById(R.id.btn_refresh);
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -450,12 +455,13 @@ public class HomeActivity extends BaseActivity implements RecycleViewLongPressMo
                     public void listAll(List<DavData> davResourceList) {
 
                         for(DavData i:davResourceList){
-                            davFileList = davFileList + i.getDisplayName() + "\n";
+                            System.out.println(i.toString());
+                            folderFileAttributeList.add(new FolderFileAttribute(i.getDisplayName(),"folder", "2021-10-10", "Yaque"));
                         }
                         Message message=new Message();
                         message.what=1;
                         handler.sendMessage(message);
-                        System.out.println(davFileList);
+                        System.out.println("================");
                     }
 
                     @Override

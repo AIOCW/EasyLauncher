@@ -247,10 +247,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/add"/>
 
-            <TextView
-                android:id="@+id/tv_show_dav_file"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dav_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
+
         </LinearLayout>
 
 
