@@ -186,7 +186,8 @@ public class HomeActivity extends BaseActivity implements RecycleViewLongPressMo
     private TextView tvShowDavFile;
     private Button btnRefresh;
     private FolderFileViewAdapter folderFileViewAdapter;
-    private List<FolderFileAttribute> folderFileAttributeList;
+    private RecyclerView fourthRecyclerView;
+    private List<FolderFileAttribute> folderFileAttributeList = new ArrayList<>();
     //end
 
     //app安装卸载更新广播
@@ -430,10 +431,13 @@ public class HomeActivity extends BaseActivity implements RecycleViewLongPressMo
         @Override
         public boolean handleMessage(@NonNull Message msg) {
             if (msg.what == 1) {
+                // fourth
+                fourthRecyclerView = findViewById(R.id.dav_recycler_view);
+                LinearLayoutManager fourthLinearLayoutManager = new LinearLayoutManager(HomeActivity.this);
+                fourthRecyclerView.setLayoutManager(fourthLinearLayoutManager);
                 folderFileViewAdapter = new FolderFileViewAdapter(HomeActivity.this, folderFileAttributeList); //目前共享一个list
-                recyclerView = findViewById(R.id.dav_recycler_view);
-                recyclerView.setAdapter(folderFileViewAdapter);
-                folderFileViewAdapter.notifyDataSetChanged();
+                fourthRecyclerView.setAdapter(folderFileViewAdapter);
+//                folderFileViewAdapter.notifyDataSetChanged();
             }
             return false;
         }
@@ -445,18 +449,21 @@ public class HomeActivity extends BaseActivity implements RecycleViewLongPressMo
             @Override
             public void onClick(View view) {
                 SyncConfig config = new SyncConfig(HomeActivity.this);
-                config.setPassWord("yqlitig20");
-                config.setUserAccount("yaque");
-                config.setServerUrl("https://d.aiocw.com");
+                config.setPassWord("12345678");
+                config.setUserAccount("test");
+                config.setServerUrl("http://192.1.1.23:8080");
                 SyncManager syncManager = new SyncManager(HomeActivity.this);
 
-                syncManager.listAllFile("/Yaque/", new OnListFileListener() {
+                syncManager.listAllFile("", new OnListFileListener() {
                     @Override
                     public void listAll(List<DavData> davResourceList) {
 
                         for(DavData i:davResourceList){
-                            System.out.println(i.toString());
-                            folderFileAttributeList.add(new FolderFileAttribute(i.getDisplayName(),"folder", "2021-10-10", "Yaque"));
+                            Log.i("FourthLayout", i.toString() + i.getDisplayName());
+                            folderFileAttributeList.add(new FolderFileAttribute(i.getDisplayName(),
+                                    "folder",
+                                    i.getModified().toString(),
+                                    "Yaque"));
                         }
                         Message message=new Message();
                         message.what=1;
