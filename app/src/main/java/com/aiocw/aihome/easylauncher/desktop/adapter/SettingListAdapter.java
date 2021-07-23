@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aiocw.aihome.easylauncher.R;
 import com.aiocw.aihome.easylauncher.desktop.activity.ServerConnectionSetting;
+import com.aiocw.aihome.easylauncher.desktop.activity.WebDavActivity;
 
 import java.util.List;
 
@@ -56,8 +57,12 @@ public class SettingListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             case 0:
                 break;
             case 1:
-                Intent intent = new Intent(context, ServerConnectionSetting.class);
-                context.startActivity(intent);
+                Intent serverCon = new Intent(context, ServerConnectionSetting.class);
+                context.startActivity(serverCon);
+                break;
+            case 2:
+                Intent webdav = new Intent(context, WebDavActivity.class);
+                context.startActivity(webdav);
                 break;
         }
     }

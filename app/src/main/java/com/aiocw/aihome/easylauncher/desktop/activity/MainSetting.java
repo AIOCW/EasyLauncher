@@ -23,7 +23,7 @@ import java.util.List;
 
 public class MainSetting extends AppCompatActivity {
     private RecyclerView rv;
-    private String [] setting = {"本机设置", "服务器连接设置"};
+    private String [] setting = {"本机设置", "消息服务", "webdav服务"};
     private ArrayList selectList;
 
 

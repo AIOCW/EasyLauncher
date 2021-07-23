@@ -55,7 +55,7 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service> <!-- 手动添加便签页面 -->
-        <activity android:name=".extendfun.waittodo.AddWaitToDoActivity"></activity> <!-- this is use send get file path -->
+        <activity android:name=".extendfun.waittodo.AddWaitToDoActivity" /> <!-- this is use send get file path -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.aiocw.aihome.easylauncher.FileProvider"
@@ -89,10 +89,11 @@
                 <data android:mimeType="*/*" />
             </intent-filter>
         </activity> <!-- 设置页面声明 -->
-        <activity android:name=".desktop.activity.MainSetting"></activity>
-        <activity android:name=".common.activity.MessageShowWebView"></activity>
-        <activity android:name=".desktop.activity.ServerConnectionSetting"></activity>
-        <activity android:name=".desktop.activity.Welcome"></activity> <!-- 注：服务端的包名为：com.ljp.messenger_server，客户端绑定Service的时候是使用程序的包名，不是使用MyServerService类的包名 -->
+        <activity android:name=".desktop.activity.MainSetting" />
+        <activity android:name=".common.activity.MessageShowWebView" />
+        <activity android:name=".desktop.activity.ServerConnectionSetting" />
+        <activity android:name=".desktop.activity.Welcome" /> <!-- 注：服务端的包名为：com.ljp.messenger_server，客户端绑定Service的时候是使用程序的包名，不是使用MyServerService类的包名 -->
+        <activity android:name=".desktop.activity.WebDavActivity"/>
         <service
             android:name=".common.EasyLauncherService"
             android:enabled="true"
